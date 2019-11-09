@@ -154,7 +154,3 @@ def navigate_product(gender, item):
     return product_url_list
 
 
-def product_list_csv(product_details_list):
-    df = pandas.DataFrame(product_details_list)
-    df.to_csv('product_details.csv')
-
