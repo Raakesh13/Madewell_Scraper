@@ -46,7 +46,7 @@ def get_productDetails(product_url_list):
             image_src_list.append(img.find('img')['data-hires'])
         product_details['Image src list'] = image_src_list
 
-        # Descrption of the product
+        # Description of the product
         product_details['Product Description'] = product_main.find('li', {'class': 'a11yAccordionItem'}).find('div', {
             'class': 'a11yAccordionHideArea'}).text.replace('\n', '')
 
@@ -136,7 +136,7 @@ def navigate_product(gender, item):
     for category in home_soup.find_all('ul', {'class': 'level-2__subnav-group'}):
         for subcate in category.find_all('li'):
             category_list[subcate.find('a').text.replace('\n', '')] = subcate.find('a')['href']
-    print(category_list.keys())
+
     driver.get(category_list[item])
     item_html = driver.execute_script('return document.documentElement.outerHTML')
     item_soup = BeautifulSoup(item_html, 'html.parser')
