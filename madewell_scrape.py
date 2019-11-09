@@ -63,7 +63,7 @@ def search_product(item_name):
     r = requests.get(search_url)
     time.sleep(2)
     r_soup = BeautifulSoup(r.content, 'html.parser')
-    result_count = re.findall('\d\d\d', r_soup.find('div', {'class': 'results-hits'}).text)[0]
+    result_count = re.findall('\d+', r_soup.find('div', {'class': 'results-hits'}).text)[0]
     for i in range((int(result_count) // 36) + 1):
         items = requests.get(search_url + '&sz=36&start=' + str(36 * i) + '&format=page-element')
         items_soup = BeautifulSoup(items.content, 'html.parser')
@@ -73,13 +73,11 @@ def search_product(item_name):
     return product_url_list
 
 
-def navigate_product():
+def navigate_product(gender, item):
     product_url_list = []
     base_url = 'https://www.madewell.com/'
     driver = webdriver.Chrome(executable_path='/home/rakesh/Drivers/chromedriver_linux64/chromedriver')
-    driver.header_overrides = {
-        'Referer': 'User Agent	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.75 Safari/537.36'
-    }
+
     driver.get(base_url)
     driver.maximize_window()
     time.sleep(5)
@@ -90,29 +88,29 @@ def navigate_product():
         driver.find_element_by_id('ipar_wmatcontinuebutton').send_keys(Keys.RETURN)
     except:
         pass
-    for gender in home_soup.find('div', {'class': 'header-microsite-tabs'}).find_all('a')[:1]:
-        driver.get(base_url + gender['href'][1:])
-        gender_cat_html = driver.execute_script('return document.documentElement.outerHTML')
-        gender_cat_soup = BeautifulSoup(home_html, 'html.parser')
 
-        for category in gender_cat_soup.find('ul').find_all('a',
-                                                            {'class': 'top-level-link has-sub-menu disabled-top-cat'})[
-                        2:3]:
-            driver.get(category['href'])
-            subcat_html = driver.execute_script('return document.documentElement.outerHTML')
-            subcat_soup = BeautifulSoup(subcat_html, 'html.parser')
-            for item in subcat_soup.find_all('a', {'class': 'subcategory-nav__item-link'})[:1]:
-                driver.get(item['href'])
-                item_html = driver.execute_script('return document.documentElement.outerHTML')
-                item_soup = BeautifulSoup(item_html, 'html.parser')
-                result_count = re.findall('\d\d\d', item_soup.find('div', {'class': 'results-hits'}).text)[0]
+    if gender == 'men':
+        driver.get(base_url + home_soup.find('div', {'class': 'header-microsite-tabs'}).find_all('a')[1]['href'][1:])
+    home_html = driver.execute_script('return document.documentElement.outerHTML')
+    home_soup = BeautifulSoup(home_html, 'html.parser')
+    category_list = {}
+    for category in home_soup.find_all('ul', {'class': 'level-2__subnav-group'}):
+        for subcate in category.find_all('li'):
+            category_list[subcate.find('a').text.replace('\n', '')] = subcate.find('a')['href']
 
-                for i in range((int(result_count) // 36) + 1):
-                    driver.get(item['href'] + '?sz=36&start=' + str(36 * i) + '&format=page-element')
-                    product_html = driver.execute_script('return document.documentElement.outerHTML')
-                    product_soup = BeautifulSoup(product_html, 'html.parser')
-                    for product in product_soup.find_all('div', {'class': 'product-tile'}):
-                        product_url_list.append(product['data-monetate-producturl'])
+    driver.get(category_list[item])
+    item_html = driver.execute_script('return document.documentElement.outerHTML')
+    item_soup = BeautifulSoup(item_html, 'html.parser')
+
+    result_count = re.findall(r'\d+', item_soup.find('div', {'class': 'results-hits'}).text)[0]
+
+    for i in range((int(result_count) // 36) + 1):
+        driver.get(category_list[item] + '?sz=36&start=' + str(36 * i) + '&format=page-element')
+        product_html = driver.execute_script('return document.documentElement.outerHTML')
+        product_soup = BeautifulSoup(product_html, 'html.parser')
+        for product in product_soup.find_all('div', {'class': 'product-tile'}):
+            product_url_list.append(product['data-monetate-producturl'])
+
     driver.quit()
     return product_url_list
 
