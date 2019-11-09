@@ -7,6 +7,7 @@ import re
 
 
 def get_productDetails(url_list):
+    base_url = 'https://www.madewell.com/'
     product_detail_list = []
     for url in url_list:
         product_details = dict()
@@ -37,6 +38,20 @@ def get_productDetails(url_list):
         product_details['Image src list'] = image_src_list
         product_details['Product Description'] = product_main.find('li', {'class': 'a11yAccordionItem'}).find('div', {
             'class': 'a11yAccordionHideArea'}).text.replace('\n', '')
+        sizes = []
+        for size in product_main.find('ul', {'class': 'swatches size'}).find_all('li', {'class': 'selectable'}):
+            sizes.append(size['data-value'])
+        try:
+            for size_type in product_main.find_all('li', {'class': 'extended-sizing-tile'}):
+                if size_type.find('a')['href'] != 'javascript:;':
+                    size_soup = BeautifulSoup(requests.get(base_url + size_type.find('a')['href'][1:]).content,
+                                              'html.parser')
+                    for size in size_soup.find('ul', {'class': 'swatches size'}).find_all('li',
+                                                                                          {'class': 'selectable'}):
+                        sizes.append(size['data-value'])
+        except:
+            pass
+        product_details['Available sizes'] = sizes
         product_detail_list.append(product_details)
     return product_detail_list
 
