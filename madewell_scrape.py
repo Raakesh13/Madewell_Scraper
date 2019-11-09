@@ -31,6 +31,12 @@ def get_productDetails(url_list):
             except:
                 color_list = None
         product_details['Available_color'] = color_list
+        image_src_list = []
+        for img in product_main.find_all('div', {'class': 'product-images-desktop__column'}):
+            image_src_list.append(img.find('img')['data-hires'])
+        product_details['Image src list'] = image_src_list
+        product_details['Product Description'] = product_main.find('li', {'class': 'a11yAccordionItem'}).find('div', {
+            'class': 'a11yAccordionHideArea'}).text.replace('\n', '')
         product_detail_list.append(product_details)
     return product_detail_list
 
@@ -92,6 +98,6 @@ def navigate_product():
                     product_soup = BeautifulSoup(product_html, 'html.parser')
                     for product in product_soup.find_all('div', {'class': 'product-tile'}):
                         product_url_list.append(product['data-monetate-producturl'])
-
+    driver.quit()
     return product_url_list
 
