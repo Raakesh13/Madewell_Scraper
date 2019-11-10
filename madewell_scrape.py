@@ -97,7 +97,7 @@ def search_product(gender, item_name):
     return product_url_list
 
 
-'''item keywords for navigate_product(): 
+'''item keywords for navigate_product() for mens category: 
 ['New Arrivals', 'Best-Selling Styles', 'Current Rotation', 'Athletic Slim', 'The Outerwear Shop', 
 'The Denim Digest', 'Custom Madewell', 'Jeans', 'Tees & Sweatshirts', 'Shirts', 'Jackets', 'Accessories', 'Shoes', 
 'Shop All Jeans', 'Find Your Perfect Pair', 'Athletic Slim Fit Jeans', 'Skinny Jeans', 'Slim Jeans', 
@@ -107,6 +107,27 @@ def search_product(gender, item_name):
 Accessories', 'Shop All Sale', 'Shop All Labels We Love', 'Carhartt Work in Progress', 'Champion', 'Madewell x 
 Penfield', 'Mollusk', 'Vans', 'Veja', 'See All Inspo', 'Style', 'Community', 'Culture', 'Videos', 'See All Events', 
 'Services', 'Locator', 'Our Initiatives', 'Our Partners', 'Our Materials', 'Our Community'] '''
+
+'''item keywords for navigate_product() for womens category:
+['New Arrivals', 'Looks We Love', 'Fall Collection', 'Find Your Perfect Pair', "Madewell Men's", 'The Outerwear 
+Shop', 'Hometown Heroes', 'Best-Selling Styles', 'Shop All Do Well Styles', 'Custom Madewell', 'Fall Florals', 
+'Stripe Hype', 'Cozy Sherpa & Fleece', 'Tomboy Plaid', 'Animal Print', 'Shop All Jeans', 'Skinny Jeans', 
+'Curvy Jeans', 'Demi-Boot & Flare Jeans', 'Boyjeans', 'Perfect Vintage & Straight-Leg Jeans', 'Wide-Leg Jeans', 
+'Overalls & Jumpsuits', 'Dresses', 'Jackets', 'Shirts', 'Shorts', 'Skirts', 'Maternity', 'Petite', 'Tall', 'Taller', 
+'Fair Trade Denim', 'Rivet & Thread', "Men's Denim Digest", 'Recycle Your Jeans', '#denimmadewell', 'Shop All 
+Clothing', 'Jeans', 'Sweaters', 'Tees', 'Tops & Shirts', 'Sweatshirts', 'Jackets & Coats', 'Pants', 'Active', 
+'Intimates & Pajamas', 'Swim', 'Extended Sizes (Sizes 16-24)', 'The Office Hours Shop', 'Denim Dressing', 'Texture & 
+Thread', 'Shop All Shoes', 'Boots', 'Flats', 'Heels', 'Mules & Slides', 'Oxfords & Loafers', 'Sneakers', 'Slippers', 
+'Sandals', 'The Sneaker Shop', '#wellheeled', 'Shop All Accessories', 'Bags', 'Jewelry', 'Leather Accessories', 
+'Scarves & Bandanas', 'Hats', 'Gloves', 'Sunglasses & Cases', 'Hair Accessories', 'Belts', 'Socks & Tights', 
+'Brand-New Bag Straps', 'Statement Earrings', 'The Transport Collection', '#totewell', 'Shop All Life', 'Home', 
+'Gift', 'Beauty', 'Candles', 'Shop All Labels We Love', 'See the Full List', 'Ace&Jig', 'Carhartt Work In Progress', 
+'Evolg', 'Madewell x Penfield', 'Owen Barry', 'Vans', 'Veja', 'W&P', 'Wyeth', 'Hometown Heroes Collective', 
+'Madewell x Dickies Collection', '25% Off Sweaters & Shoes', 'Extra 20% Off Sale Styles', 'Shop All Sale', 
+'New to Sale', 'Sale Jeans', 'Sale Sweaters', 'Sale Jackets & Coats', 'Sale Tees', 'Sale Tops', 'Sale Dresses & 
+Skirts', 'Sale Pants & Shorts', 'Sale Bags', 'Sale Shoes', 'Sale Jewelry', 'Sale Swim', 'See All Inspo', 'Style', 
+'Community', 'Culture', 'Videos', 'See All Events', 'Services', 'Locator', 'Our Initiatives', 'Our Materials', 
+'Our Partners', 'Our Community', '#everydaymadewell'] '''
 
 
 # function to get the url list when an item selected from the navigation menu
